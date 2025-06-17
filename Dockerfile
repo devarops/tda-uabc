@@ -12,6 +12,7 @@ RUN pip install \
     pytest
 RUN pip install \
     giotto-tda \
-    matplotlib
+    matplotlib \
+    pandas
 
 CMD make
