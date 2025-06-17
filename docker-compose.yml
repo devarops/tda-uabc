@@ -1,0 +1,9 @@
+services:
+  islasgeci:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: islasgeci/tda_uabc:latest
+    command: bash
+    volumes:
+      - $PWD:/workdir
