@@ -93,3 +93,5 @@ plt.ylim([0-maximo/32,maximo+maximo/32])
 plt.plot([0,maximo],[0,maximo],linestyle="--")
 
 plt.tight_layout()
+
+plt.savefig("diagramas_persistencia.png", transparent=True)
