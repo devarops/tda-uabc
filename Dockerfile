@@ -11,6 +11,7 @@ RUN pip install \
     pytest-cov \
     pytest
 RUN pip install \
+    git+https://github.com/IslasGECI/geci_cli.git \
     giotto-tda \
     matplotlib \
     pandas

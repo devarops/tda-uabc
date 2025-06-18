@@ -15,9 +15,15 @@ import pandas as pd
 # https://giotto-ai.github.io/gtda-docs/0.5.1/library.html
 from gtda.homology import VietorisRipsPersistence
 from gtda.plotting import plot_diagram, plot_point_cloud
+from geci_cli import geci_cli
 
+paths = geci_cli()
 
-trip_data_df = pd.read_csv("trip_0A7_01.csv")
+data_path = paths.input[0][0]
+
+figure_path = paths.output[0][0]
+
+trip_data_df = pd.read_csv(data_path)
 
 array_2d = trip_data_df[["X", "Y"]].to_numpy()
 zeros_col = np.zeros((array_2d.shape[0], 1))
@@ -55,4 +61,4 @@ plt.plot([0, maximo], [0, maximo], linestyle="--")
 
 plt.tight_layout()
 
-plt.savefig("diagramas_persistencia.png", transparent=True)
+plt.savefig(figure_path, transparent=True)
