@@ -6,7 +6,7 @@ Podemos correr el script para los diferentes viajes (`tripID`):
 - `H52_07`
 
 ```bash
-python experimentos_TDA_giotto-tda.py --input trip_tripID.csv --output diagrama_tripID.png
+python experimentos_TDA_giotto-tda.py --input trip_<tripID>.csv --output diagrama_<tripID>.png
 ```
 
 Por ejemplo:
