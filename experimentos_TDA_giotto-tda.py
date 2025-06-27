@@ -15,13 +15,11 @@ import pandas as pd
 # https://giotto-ai.github.io/gtda-docs/0.5.1/library.html
 from gtda.homology import VietorisRipsPersistence
 from gtda.plotting import plot_diagram, plot_point_cloud
-from geci_cli import geci_cli
 
-paths = geci_cli()
+id = "H51_08"
 
-data_path = paths.input[0][0]
-
-figure_path = paths.output[0][0]
+data_path = f"trip_{id}.csv"
+figure_path = f"diagrama_{id}.png"
 
 trip_data_df = pd.read_csv(data_path)
 
