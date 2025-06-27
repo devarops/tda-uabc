@@ -16,20 +16,74 @@ import pandas as pd
 from gtda.homology import VietorisRipsPersistence
 from gtda.plotting import plot_diagram, plot_point_cloud
 
-id = "H51_08"
+# creando elipses
+# me basé en lo que necesita VietorisRipsPersistence siguiendo:
+# https://github.com/giotto-ai/giotto-tda/blob/master/examples/data/generate_datasets.py
 
-data_path = f"trip_{id}.csv"
-figure_path = f"diagrama_{id}.png"
 
-trip_data_df = pd.read_csv(data_path)
+def crear_elipse(centro, eje_horizontal, eje_vertical, num_datos, magnitud_ruido):
+    '''
+    Parameters
+    ----------
+    centro : array of shape (1,2)
+        Center ellipse at (centro[0],centro[1])
+    eje_horizontal : float
+        Horizontal radius.
+    eje_vertical : float
+        Vertical radius.
+    num_datos : int
+        Number of data points.
+    magnitud_ruido : float
+        Add random noise to data following uniform distribution over 
+        [0,magnitud_ruido].
 
-array_2d = trip_data_df[["X", "Y"]].to_numpy()
-zeros_col = np.zeros((array_2d.shape[0], 1))
-array_3d_input = np.hstack((array_2d, zeros_col))
-array_3d = array_3d_input.reshape((1, array_2d.shape[0], 3))
+    Returns
+    -------
+    datos : ndarray of shape (1,num_datos,3)
+
+    '''
+    x0, y0 = centro
+    rx, ry = eje_horizontal, eje_vertical
+    noise = magnitud_ruido
+
+    datos = np.array([[[x0 + rx*np.cos(t) + noise*np.random.rand(1)[0],
+                        y0 + ry*np.sin(t) + noise*np.random.rand(1)[0],
+                        0]
+                       for t in np.linspace(0, 2*np.pi, num_datos+1)[0:-1]
+                       ]
+                      ])
+    return datos
+
+
+# elipses sin ruido
+centro1 = [0, 0]
+r_hor1 = 1
+r_ver1 = 2
+n_dat1 = 10
+cloud1 = crear_elipse(centro1, r_hor1, r_ver1, n_dat1, 0.)
+
+centro2 = [5, 5]
+r_hor2 = 2
+r_ver2 = 2
+n_dat2 = 10
+cloud2 = crear_elipse(centro2, r_hor2, r_ver2, n_dat2, 0.)
+
+
+def get_cloud_from_trip_data(trip_id):
+    data_path = f"trip_{trip_id}.csv"
+
+    trip_data_df = pd.read_csv(data_path)
+
+    array_2d = trip_data_df[["X", "Y"]].to_numpy()
+    zeros_col = np.zeros((array_2d.shape[0], 1))
+    array_3d_input = np.hstack((array_2d, zeros_col))
+    array_3d = array_3d_input.reshape((1, array_2d.shape[0], 3))
+    return array_3d
+
 
 # vamos a juntar las elipses en una nube de puntos
-cloud = array_3d
+trip_id = "H51_08"
+cloud = get_cloud_from_trip_data(trip_id)
 print(cloud.shape)
 
 # calculamos diagrama de persistencia
@@ -59,4 +113,5 @@ plt.plot([0, maximo], [0, maximo], linestyle="--")
 
 plt.tight_layout()
 
+figure_path = f"diagrama_{trip_id}.png"
 plt.savefig(figure_path, transparent=True)
