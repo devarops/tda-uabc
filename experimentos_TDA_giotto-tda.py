@@ -91,12 +91,12 @@ diagram = VR.fit_transform(cloud)
 print(diagram.shape)
 
 # gráficas
-plt.subplot(2, 1, 1)
+plt.subplot(1, 2, 1)
 plt.title('datos')
 plt.scatter(x=cloud[0][:, 0], y=cloud[0][:, 1], color='k', label='datos')
 plt.legend()
 
-plt.subplot(2, 1, 2)
+plt.subplot(1, 2, 2)
 plt.title('diagrama de persistencia')
 diagram2 = diagram[0][diagram[0][:, 2] == 0]
 plt.scatter(x=diagram2[:, 0], y=diagram2[:, 1], label='$H_0$')
