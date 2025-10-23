@@ -3,7 +3,7 @@
 """
 Created on Mon May  5 19:43:32 2025
 
-@author: user
+@author: Ariel Camacho
 """
 
 # numpy, pyplot
@@ -80,8 +80,7 @@ def get_cloud_from_trip_data(trip_id):
     array_3d = array_3d_input.reshape((1, array_2d.shape[0], 3))
     return array_3d
 
-
-# vamos a juntar las elipses en una nube de puntos
+# cargamos datos de un viaje
 trip_id = "H51_08"
 cloud = get_cloud_from_trip_data(trip_id)
 print(cloud.shape)
@@ -96,7 +95,6 @@ plt.subplot(2, 1, 1)
 plt.title('datos')
 plt.scatter(x=cloud[0][:, 0], y=cloud[0][:, 1], color='k', label='datos')
 plt.legend()
-
 
 plt.subplot(2, 1, 2)
 plt.title('diagrama de persistencia')
